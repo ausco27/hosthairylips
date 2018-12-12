@@ -330,5 +330,4 @@ async def help(ctx):
 ##    await client.send_message(member, 'hey do you wanna be my girlfriend?? add me: hairy lips#7774')
 ##    print('Sent message to ' + member.name)
 
-client.run('NTE5MjM3MzEyMjk5Nzk0NDMy.DuckcA.THLgG7x4Gp2GBxQEJqbjd4xQVAM')
 client.run(os.getenv('TOKEN'))
