@@ -4,7 +4,7 @@ from discord.ext import commands
 import asyncio
 import time
 import random
-import os
+import string
 from discord import Game
 from discord.utils import get
 from discord.ext import commands
@@ -17,20 +17,24 @@ client.remove_command('help')
 
 @client.event
 async def on_message(message):
-    if message.content == 'hi':
-        await client.send_message(message.channel,'hey sexy :wink:')
-    if message.content == 'hello':
-        await client.send_message(message.channel,'hey baby ;)')
-    if message.content == 'hey guys':
-        await client.send_message(message.channel,'hey girl ;)')
-    if message.content == 'Hi':
-        await client.send_message(message.channel,'hey sexy :wink:')
-    if message.content == 'Hello':
-        await client.send_message(message.channel,'hey baby ;)')
+    if message.author == client.user:
+        return
+    if message.content.startswith('hi'):
+        await client.send_message(message.channel,"hey sexy :wink: {0.author.mention}".format(message))
+    if message.content.startswith('hello'):
+        await client.send_message(message.channel,"hey baby :wink: {0.author.mention}".format(message))
+    if message.content.startswith('Hi'):
+        await client.send_message(message.channel,"hey sexy :wink: {0.author.mention}".format(message))
+    if message.content.startswith('Hello'):
+        await client.send_message(message.channel,"hey sexy :wink: {0.author.mention}".format(message))
+    if message.content.startswith('hey guys'):
+        await client.send_message(message.channel,"hey girl :wink: {0.author.mention}".format(message))
+    if message.content.startswith('Hey guys'):
+        await client.send_message(message.channel,"hey girl :wink: {0.author.mention}".format(message))
     if message.content == 'hoy':
         await client.send_message(message.channel,'hoyy')
-    if message.content == 'Hey guys':
-        await client.send_message(message.channel,'hey girl ;)')
+    if message.content == 'Hoy':
+        await client.send_message(message.channel,'hoyy')
     if message.content == 'good morning':
         await client.send_message(message.channel,'good morning sunshine! <3')
     if message.content == 'Goodmorning':
@@ -225,12 +229,20 @@ async def on_message(message):
         await client.add_reaction(message, emoji='🇪')
         await client.add_reaction(message, emoji='🇾')
         await client.add_reaction(message, emoji='🇲')
-    await client.process_commands(message)
     if message.author.id == "455678814681563136":
       emoji4 = get(client.get_all_emojis(), name='mecute')
       await client.add_reaction(message, '🇮')
       await client.add_reaction(message, '❤')
       await client.add_reaction(message, emoji=emoji4)
+
+    if message.channel.is_private == True: # This is a direct message: Private Message
+        print("Private", message.author, message.content) 
+
+ ##   if message.author.id == '201546529973075968':
+ ##       em = discord.Embed(description='')
+ ##       await client.send_message(discord.Object(id='522488319511101456'),'message')
+
+    await client.process_commands(message)
 
 @client.command(pass_context=True)
 async def stalk(ctx, member: discord.Member = None):
@@ -248,9 +260,27 @@ async def stalk(ctx, member: discord.Member = None):
 
 @client.command(pass_context=True)
 async def avatar(con,user:discord.Member):
-    emb=discord.Embed(title=user.name + ' aka my bitch')
+    emb=discord.Embed(title=user.name + ' aka my girlfriend')
     emb.set_image(url=user.avatar_url)
     await client.send_message(con.message.channel,embed=emb)
+
+@client.command(pass_context=True)
+async def ping(ctx):
+   	channel = ctx.message.channel
+   	t1 = time.perf_counter()
+   	await client.send_typing(channel)
+   	t2 = time.perf_counter()
+   	embed=discord.Embed(title="Pong!", description='It took {}ms.'.format(round((t2-t1)*1000)), color=0xffffff)
+   	await client.say(embed=embed)
+    
+@client.command(pass_context=True)
+async def quote(ctx,member:discord.Member, *, content):
+    user_msg=ctx.message
+    embed = discord.Embed(description = content, colour=member.colour, timestamp=ctx.message.timestamp)
+    embed.set_author(name=member.name , icon_url=member.avatar_url)
+    await asyncio.sleep(1)
+    await client.delete_message(user_msg)
+    await client.send_message(ctx.message.channel,embed=embed)
 
 @client.event
 async def on_ready():
@@ -282,7 +312,7 @@ async def timer(con, time:int=10):
 async def say(ctx, *msg):
     user_msg=ctx.message
     await client.say("{}".format(" ".join(msg)))
-    await asyncio.sleep(1)
+    await asyncio.sleep(.1)
     await client.delete_message(user_msg)
 
 @client.command(pass_context=True)
@@ -323,8 +353,22 @@ async def help(ctx):
     embed.add_field(name='hairy.leave', value='hairy lips leaves but still loves you', inline=False)
     await client.send_message(ctx.message.channel, embed=embed)
 
+@client.command(pass_context=True)
+async def broadcast(ctx, *, message):
+    channel = client.get_channel("522488319511101456")
+    await client.send_message(channel, message)
+
+@client.command(pass_context=True)
+async def poke(ctx, member: discord.Member):
+    await client.send_message(member, 'boop')
+
 ##author = ctx.message.author
 ##@client.event
+##async def on_message(msg):
+##    if msg.channel.is_private == True: # This is a direct message: Private Message
+##        print("Private")
+##    if msg.channel.is_private == False: #Mesage is from a server, not in Direct Message
+##        print("Public")
 ##async def on_member_join(member):
 ##    print('Recognised that a member called ' + member.name + ' joined')
 ##    await client.send_message(member, 'hey do you wanna be my girlfriend?? add me: hairy lips#7774')
