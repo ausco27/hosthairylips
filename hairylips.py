@@ -5,6 +5,7 @@ import asyncio
 import time
 import random
 import string
+import os
 from discord import Game
 from discord.utils import get
 from discord.ext import commands
