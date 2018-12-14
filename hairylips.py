@@ -5,7 +5,6 @@ import asyncio
 import time
 import random
 import string
-import os
 from discord import Game
 from discord.utils import get
 from discord.ext import commands
@@ -199,6 +198,9 @@ async def on_message(message):
     if message.content == ';facetime':
         em = discord.Embed(description='facetiming with my boyfriend')
         em.set_image(url='https://cdn.discordapp.com/attachments/511734629372526625/522309548787236876/unknown.png')
+    if message.content == ';graylovesme':
+        em = discord.Embed(description='')
+        em.set_image(url='https://cdn.discordapp.com/attachments/522488319511101456/523186063334703104/unknown.png')
         await client.send_message(message.channel, embed=em)
     if message.content.startswith('dechy diss'):
         randomlist = ["Sayin my makeup looks like trash but who are you?", "Hiding behind a profile no pictures to view", "Acting like im ugly what an insult i think i need a tissue", "You silly you dont know the bars im bout to chew through", "Ha you rapped once and said that you were better than me", "thats funny cuz u sounded like a french preteen", "you were stumbling through your words a social disgracee", "If you think you are better thats a joke and not reality", "To be honest when i met you i thought u were a dude", "Yo voice is annoying and your mouth should just stay glued", "Sounding like a kid all moody and rude", "Just shut yo mouth stop making everyone feel devalued", "Ima ask you to just sit back missy", "Your “roasts” are some of the most basic things I've ever heard", "It's like you want attention", "Saying the same stuff that made me mad over and over again", "Well now people will be playing this track over and over again", "Do you really think I gave a __", "I had had u on ur knees apologising dumbstruck", "I was getting a show for my buck", "U thought I cried!? Hahaha not today Donald Duck"]
@@ -230,7 +232,7 @@ async def on_message(message):
         await client.add_reaction(message, emoji='🇪')
         await client.add_reaction(message, emoji='🇾')
         await client.add_reaction(message, emoji='🇲')
-    if message.author.id == "455678814681563136":
+    if message.author.id == "452646134343794":
       emoji4 = get(client.get_all_emojis(), name='mecute')
       await client.add_reaction(message, '🇮')
       await client.add_reaction(message, '❤')
@@ -356,12 +358,23 @@ async def help(ctx):
 
 @client.command(pass_context=True)
 async def broadcast(ctx, *, message):
-    channel = client.get_channel("522488319511101456")
+    channel = client.get_channel("521894876925919243")
     await client.send_message(channel, message)
 
 @client.command(pass_context=True)
-async def poke(ctx, member: discord.Member):
-    await client.send_message(member, 'boop')
+async def sendlove(ctx, member: discord.Member):
+    await client.send_message(member, '💕💕💕')
+
+@client.command(pass_context=True)
+async def delete(con,ide:str):
+    msg=await client.get_message(con.message.channel,ide)
+    await client.delete_message(msg)
+
+@client.command(pass_context=True)
+async def unban(con,user:int):
+    try:
+        who=await client.get_user_info(user)
+        await client.unban(con.message.server,who)
 
 ##author = ctx.message.author
 ##@client.event
@@ -375,4 +388,4 @@ async def poke(ctx, member: discord.Member):
 ##    await client.send_message(member, 'hey do you wanna be my girlfriend?? add me: hairy lips#7774')
 ##    print('Sent message to ' + member.name)
 
-client.run(os.environ['TOKEN'])
+client.run('NTE5MjM3MzEyMjk5Nzk0NDMy.DuckcA.THLgG7x4Gp2GBxQEJqbjd4xQVAM')
