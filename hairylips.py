@@ -5,6 +5,7 @@ import asyncio
 import time
 import random
 import string
+import os
 from discord import Game
 from discord.utils import get
 from discord.ext import commands
@@ -416,4 +417,4 @@ async def ok(con):
 ##    await client.send_message(member, 'hey do you wanna be my girlfriend?? add me: hairy lips#7774')
 ##    print('Sent message to ' + member.name)
 
-client.run('NTE5MjM3MzEyMjk5Nzk0NDMy.DuckcA.THLgG7x4Gp2GBxQEJqbjd4xQVAM')
+client.run(os.environ.get("TOKEN"))
