@@ -20,17 +20,17 @@ client.remove_command('help')
 async def on_message(message):
     if message.author == client.user:
         return
-    if message.content.startswith('hi'):
+    if message.content == 'hi':
         await client.send_message(message.channel,"hey sexy :wink: {0.author.mention}".format(message))
-    if message.content.startswith('hello'):
+    if message.content == 'hello':
         await client.send_message(message.channel,"hey baby :wink: {0.author.mention}".format(message))
-    if message.content.startswith('Hi'):
+    if message.content == 'Hi':
         await client.send_message(message.channel,"hey sexy :wink: {0.author.mention}".format(message))
-    if message.content.startswith('Hello'):
+    if message.content == 'Hello':
         await client.send_message(message.channel,"hey sexy :wink: {0.author.mention}".format(message))
-    if message.content.startswith('hey guys'):
+    if message.content == 'hey guys':
         await client.send_message(message.channel,"hey girl :wink: {0.author.mention}".format(message))
-    if message.content.startswith('Hey guys'):
+    if message.content == 'Hey guys':
         await client.send_message(message.channel,"hey girl :wink: {0.author.mention}".format(message))
     if message.content == 'hoy':
         await client.send_message(message.channel,'hoyy')
