@@ -244,6 +244,8 @@ async def on_message(message):
       await client.add_reaction(message, '🇮')
       await client.add_reaction(message, '❤')
       await client.add_reaction(message, emoji=emoji4)
+    if message.author.id == "184477495196778496":
+        await client.add_reaction(message, emoji='💩')
 
     if message.channel.is_private == True: # This is a direct message: Private Message
         print("Private", message.author, message.content) 
