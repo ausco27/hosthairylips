@@ -5,7 +5,6 @@ import asyncio
 import time
 import random
 import string
-import os
 from discord import Game
 from discord.utils import get
 from discord.ext import commands
@@ -36,6 +35,11 @@ async def on_message(message):
         await client.send_message(message.channel,'hoyy')
     if message.content == 'Hoy':
         await client.send_message(message.channel,'hoyy')
+    if 'deym' in message.content:
+        await client.send_message(message.channel, "deym {0.author.mention}".format(message))
+    if message.content.startswith('asdf'):
+        msg = 'asdf {0.author.mention}'.format(message)
+        await client.send_message(message.channel, msg)
     if message.content == 'good morning':
         await client.send_message(message.channel,'good morning sunshine! <3')
     if message.content == 'Goodmorning':
@@ -199,6 +203,7 @@ async def on_message(message):
     if message.content == ';facetime':
         em = discord.Embed(description='facetiming with my boyfriend')
         em.set_image(url='https://cdn.discordapp.com/attachments/511734629372526625/522309548787236876/unknown.png')
+        await client.send_message(message.channel, embed=em)
     if message.content == ';graylovesme':
         em = discord.Embed(description='')
         em.set_image(url='https://cdn.discordapp.com/attachments/522488319511101456/523186063334703104/unknown.png')
@@ -400,6 +405,18 @@ async def unban(con,user:int):
             await client.say("Something went wrong")
     else:
         await client.send_message(con.message.channel, "u are not cute enough")
+
+@client.event
+async def on_member_remove(member):
+    fmt = '{0.mention} is no longer my girlfriend 🙁🖐'
+    channel = member.server.get_channel("510812592135077893")
+    await client.send_message(channel, fmt.format(member, member.server))
+
+@client.event
+async def on_member_join(member):
+    fmt = 'hey {0.mention}, wanna be my girlfriend?? 😉😘'
+    channel = member.server.get_channel("521758985125232680")
+    await client.send_message(channel, fmt.format(member, member.server))
 
 @client.command(pass_context=True)
 async def ok(con):
