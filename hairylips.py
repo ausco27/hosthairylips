@@ -244,10 +244,6 @@ async def on_message(message):
       await client.add_reaction(message, '🇮')
       await client.add_reaction(message, '❤')
       await client.add_reaction(message, emoji=emoji4)
-    if message.author.id == "184477495196778496":
-        await client.add_reaction(message, emoji='🇳')
-        await client.add_reaction(message, emoji='🇺')
-        await client.add_reaction(message, emoji='🇹')
 
     if message.channel.is_private == True: # This is a direct message: Private Message
         print("Private", message.author, message.content) 
@@ -271,6 +267,32 @@ async def stalk(ctx, member: discord.Member = None):
     embed.add_field(name=f"Roles ({len(roles)})", value=" ".join([role.mention for role in roles]))
     embed.add_field(name="Top role:", value=member.top_role.mention)
     await client.send_message(ctx.message.channel,embed=embed)
+
+@client.command(pass_context = True)
+async def serverinfo(ctx):
+    
+    server = ctx.message.server
+    roles = [x.name for x in server.role_hierarchy]
+    role_length = len(roles)
+
+    if role_length > 50: #Just in case there are too many roles...
+        roles = roles[:50]
+        roles.append('>>>> Displaying[50/%s] Roles'%len(roles))
+
+    roles = ', '.join(roles);
+    channelz = len(server.channels);
+    time = str(server.created_at); time = time.split(' '); time= time[0];
+
+    join = discord.Embed(description= '%s '%(str(server)),title = 'Server Name', colour = 0xFFFF);
+    join.set_thumbnail(url = server.icon_url);
+    join.add_field(name = '__Owner__', value = str(server.owner) + '\n' + server.owner.id);
+    join.add_field(name = '__ID__', value = str(server.id))
+    join.add_field(name = '__Member Count__', value = str(server.member_count));
+    join.add_field(name = '__Text/Voice Channels__', value = str(channelz));
+    join.add_field(name = '__Roles (%s)__'%str(role_length), value = roles);
+    join.set_footer(text ='Created: %s'%time);
+
+    return await client.say(embed = join);
 
 @client.command(pass_context=True)
 async def avatar(con,user:discord.Member):
@@ -331,6 +353,11 @@ async def say(ctx, *msg):
         await client.delete_message(user_msg)
     else:
         await client.send_message(ctx.message.channel, "only my boss can tell me wat to say")
+
+@client.command(pass_context=True)
+async def members(ctx):
+    embed = discord.Embed(title="Member Count", description=str(len(ctx.message.server.members)), color=0x149900)
+    await client.say(embed=embed)
 
 @client.command(pass_context=True)
 async def online(con):
@@ -423,9 +450,215 @@ async def on_member_join(member):
     channel = member.server.get_channel("521758985125232680")
     await client.send_message(channel, fmt.format(member, member.server))
 
-@client.command(pass_context=True)
-async def ok(con):
-    print(dir(con.message))
+extensions = ['ttt', 'penis', 'translator']
+
+@client.command()
+async def load(extension):
+    try:
+        client.load_extension(extension)
+        print('Loaded {}'.format(extension))
+    except Exception as error:
+        print('{} cannot be loaded. [{}]'.format(extension, error))
+
+@client.command()
+async def unload(extension):
+    try:
+        client.unload_extension(extension)
+        print('Unloaded {}'.format(extension))
+    except Exception as error:
+        print('{} cannot be unloaded. [{}]'.format(extension, error))
+
+if __name__ == '__main__':
+    for extension in extensions:
+        try:
+            client.load_extension(extension)
+        except Exception as error:
+            print('{} cannot be loaded. [{}]'.format(extension, error))
+
+@client.event
+async def on_reaction_add(reaction, user):
+  ChID = '511735471152431105'
+  if reaction.message.channel.id != ChID:
+    return
+  if reaction.emoji == "🇪":
+    CSGO = discord.utils.get(user.server.roles, name="CSGO_P")
+    await client.add_roles(user, CSGO)
+
+@client.event
+async def on_reaction_add(reaction, user):
+    roleChannelId = '509927985177034762'
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:327303198719082499:525535441072422914>":
+        rospc = discord.utils.get(user.server.roles, name="ROS PC")
+        await client.add_roles(user, rospc)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:327251745510129665:525535458134982656>":
+        rosmobile = discord.utils.get(user.server.roles, name="ROS Mobile")
+        await client.add_roles(user, rosmobile)
+    
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:Hotdogging:503338898160877568>":
+        Fortnite = discord.utils.get(user.server.roles, name="Fortnite")
+        await client.add_roles(user, Fortnite)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:ass:433056815283175434>":
+        Ragnarok = discord.utils.get(user.server.roles, name="Ragnarok Online")
+        await client.add_roles(user, Ragnarok)
+    
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:ass:513400648071512082>":
+        pubgsteam = discord.utils.get(user.server.roles, name="PUBG Steam")
+        await client.add_roles(user, pubgsteam)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:dildo:409202109351985152>":
+        dota = discord.utils.get(user.server.roles, name="DOTA 2")
+        await client.add_roles(user, dota)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:pp2:447081734261964802>":
+        pubgmobile = discord.utils.get(user.server.roles, name="PUBG Mobile")
+        await client.add_roles(user, pubgmobile)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:boobs:429404738212200450>":
+        mobilelegends = discord.utils.get(user.server.roles, name="Mobile Legends")
+        await client.add_roles(user, mobilelegends)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:boob:499849333273788427>":
+        CSGO = discord.utils.get(user.server.roles, name="CSGO")
+        await client.add_roles(user, CSGO)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:lick:503691646848860160>":
+        league = discord.utils.get(user.server.roles, name="League of Legends")
+        await client.add_roles(user, league)
+    
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:eggplantrick:519008929590542349>":
+        rossteam = discord.utils.get(user.server.roles, name="ROS STEAM")
+        await client.add_roles(user, rossteam)
+
+
+@client.event
+async def on_reaction_remove(reaction, user):
+    roleChannelId = '509927985177034762'
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:327303198719082499:525535441072422914>":
+        rospc = discord.utils.get(user.server.roles, name="ROS PC")
+        await client.remove_roles(user, rospc)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:327251745510129665:525535458134982656>":
+        rosmobile = discord.utils.get(user.server.roles, name="ROS Mobile")
+        await client.remove_roles(user, rosmobile)
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:Hotdogging:503338898160877568>":
+        Fortnite = discord.utils.get(user.server.roles, name="Fortnite")
+        await client.remove_roles(user, Fortnite)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:ass:433056815283175434>":
+        Ragnarok = discord.utils.get(user.server.roles, name="Ragnarok Online")
+        await client.remove_roles(user, Ragnarok)
+    
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:ass:513400648071512082>":
+        pubgsteam = discord.utils.get(user.server.roles, name="PUBG Steam")
+        await client.remove_roles(user, pubgsteam)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:dildo:409202109351985152>":
+        dota = discord.utils.get(user.server.roles, name="DOTA 2")
+        await client.remove_roles(user, dota)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:pp2:447081734261964802>":
+        pubgmobile = discord.utils.get(user.server.roles, name="PUBG Mobile")
+        await client.remove_roles(user, pubgmobile)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:boobs:429404738212200450>":
+        mobilelegends = discord.utils.get(user.server.roles, name="Mobile Legends")
+        await client.remove_roles(user, mobilelegends)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:boob:499849333273788427>":
+        CSGO = discord.utils.get(user.server.roles, name="CSGO")
+        await client.remove_roles(user, CSGO)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:lick:503691646848860160>":
+        league = discord.utils.get(user.server.roles, name="League of Legends")
+        await client.remove_roles(user, league)
+
+    if reaction.message.channel.id != roleChannelId:
+        return #So it only happens in the specified channel
+    if str(reaction.emoji) == "<:eggplantrick:519008929590542349>":
+        rossteam = discord.utils.get(user.server.roles, name="ROS STEAM")
+        await client.remove_roles(user, rossteam)
+##@client.event
+##async def on_message_edit(before, after):
+
+##    server = before.author.server
+##    userID = before.author.id
+
+##    if (server.id in privlogs["servers"]):
+##        log_channel = server.get_channel(privlogs["servers"][server.id]) # Oh yea, we're logging it too :)
+    
+##    embed = discord.Embed(title='Message Edited', color = 0xD24D26)
+##    embed.add_field(name='User', value = '{} '.format(before.author) + "(<@{}>)".format(userID), inline=False)
+##    embed.add_field(name='Channel', value = "#{}".format(before.channel), inline=False)
+##    embed.add_field(name='Content Before', value = before.content, inline=True)
+##   embed.add_field(name='Content After', value = after.content, inline=True)
+##    embed.timestamp = datetime.utcnow()
+##    embed.set_thumbnail(url=before.author.avatar_url)
+    
+##    await client.send_message(log_channel, embed=embed)
+
+##@client.event
+##async def on_message_delete(message):
+    
+##    server = message.author.server
+##    userID = message.author.id
+    
+##    if (server.id in privlogs["servers"]):
+##        log_channel = server.get_channel(privlogs["servers"][server.id])
+
+##   embed = discord.Embed(title='Message Deleted', color = 0x1E3F8C)
+##    embed.add_field(name='User', value="{} ".format(message.author) + "(<@{}>)".format(userID), inline=False)
+##    embed.add_field(name='Channel', value =message.channel,inline=False)
+##    embed.add_field(name='Content', value=message.content, inline=False)
+##    embed.timestamp = datetime.utcnow()
+##    embed.set_thumbnail(url=message.author.avatar_url)
+    
+##    await client.send_message(log_channel, embed=embed)
 
 ##author = ctx.message.author
 ##@client.event
