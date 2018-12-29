@@ -440,7 +440,7 @@ async def unban(con,user:int):
 
 @client.event
 async def on_member_remove(member):
-    fmt = '{0.mention} is no longer my girlfriend 🙁🖐'
+    fmt = '{0.mention} *{0}* is no longer my girlfriend 🙁🖐'
     channel = member.server.get_channel("510812592135077893")
     await client.send_message(channel, fmt.format(member, member.server))
 
