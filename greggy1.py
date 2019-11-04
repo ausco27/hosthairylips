@@ -530,4 +530,4 @@ async def resume(ctx):
     id = ctx.message.server.id
     players[id].resume()
 
-client.run(("NjIxMDg0OTMyMzYxNDIwODEz.XXgPzw.dEubs2UNyTMaNTne393tlLi2HbQ"))
+client.run(("3tlLi2HbQ"))
